@@ -20,8 +20,19 @@ export class LocListService {
 
   private parseData(res: Response) {
     let data = res.json();
-    console.log(data);
-    return data.results || { };
+    let results = data.results;
+    let locations: Location[] = [];
+
+    for (let place of results) {
+      //console.log(place);
+      var l = <Location>{
+        name: place.name, 
+        id: place.id, 
+        address: place.vicinity};
+      locations.push(l);
+    }
+    //console.log(locations);
+    return locations || { };
   }
 
   private catchErr(error : Response | any) {
